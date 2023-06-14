@@ -264,7 +264,7 @@ namespace TelegramBotTest
                         {
                             PairLink link = DB.readParLink(long.Parse(_pair.KOD_DISC), user.GrpID, PairLink.getDscType(_pair.TypePair));
                             _pair.WorkLink = link;
-                            AltPair altPair = DB.readAltPair(_pair);
+                            AltPair altPair = DB.readAltPair(_pair.DateReg, AltPair.ToNumberPair(_pair.NumPair), user.GrpID);
 
                             if (altPair == null)
                             {
@@ -749,7 +749,7 @@ namespace TelegramBotTest
 
                 if (data.Contains("/yes")) 
                 {
-                    if (DB.readCountStarosta(user.GrpID) > 2)
+                    if (DB.readCountStarosta(user.GrpID) >= 2)
                     {
                         Bot.SendTextMessageAsync(message.Chat, "You was late! Starosta has been choosed early.");
                     } 
